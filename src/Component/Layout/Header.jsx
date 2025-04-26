@@ -55,7 +55,7 @@ const Header = () => {
             <div className="wrap-avatar" onClick={() => setShowMenuPerson(true)}>
                 {avatarUrl ? <img className="avatar" src={avatarUrl}/>: <i className="bi bi-person-bounding-box icon"></i>}
             </div>
-            <div className="wrap-cart">
+            <div className="wrap-cart" onClick={() => navigator('/cart')}>
                 <i class="bi bi-cart4 icon-mini"></i>
             </div>
         </div>

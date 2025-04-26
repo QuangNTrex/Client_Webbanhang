@@ -1,22 +1,16 @@
-// src/pages/CartPage.jsx
+// src/pages/OrderPage.jsx
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../Component/UI/CartItem";
-import "./CartPage.css"
+import "./OrderPage.css"
 import { changeProduct } from "../redux/cartSlice";
-import { useNavigate } from "react-router-dom";
 
 
-const CartPage = () => {
+const OrderPage = () => {
     const cart = useSelector(state => state.cart.cart);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const buyHandler = () => {
-        navigate("/checkout");
-    }
 
     return (
-        <div className="CartPage">
+        <div className="OrderPage">
             <div className="wrap-top">
 
             <h3 className="title">Giỏ hàng</h3>
@@ -27,6 +21,7 @@ const CartPage = () => {
             </div>
             <div className="wrap-bottom">
                 <div className="wrap-bottom-left">
+
                      <button className="btn btn-check-all" onClick={() => {
                         cart.map(e => {
                             dispatch(changeProduct({product: e.product, quantity: e.quantity, checked: true}))
@@ -36,7 +31,7 @@ const CartPage = () => {
                 <div className="wrap-bottom-right">
                     <h3 className="title">Tổng cộng {'('}{cart.reduce((total, item) => total + item.quantity, 0)} sản phẩm {')'}: </h3>
                     <h3 className="total-price">{cart.reduce((total, item) => total + item.quantity * item.product.price * item.checked, 0)} VND</h3>
-                    <button className="btn btn-buy" onClick={buyHandler}>Mua Hàng</button>
+                    <button className="btn btn-buy">Mua Hàng</button>
                 </div>
             </div>
 
@@ -44,4 +39,4 @@ const CartPage = () => {
     );
 };
 
-export default CartPage;
+export default OrderPage;

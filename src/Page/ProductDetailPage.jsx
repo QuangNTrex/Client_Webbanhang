@@ -27,8 +27,7 @@ const ProductDetailPage = () => {
         }, [id]);
 
     const addToCart = () => {
-        console.log({productID: product.productID, quantity: inputQuantity});
-        dispatch(addProduct({productID: product.productID, quantity: inputQuantity}));
+        dispatch(addProduct({product: product, quantity: inputQuantity}));
     }
 
 

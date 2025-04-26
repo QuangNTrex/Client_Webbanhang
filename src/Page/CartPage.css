@@ -1,0 +1,39 @@
+.CartPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80vh;
+    
+}
+.CartPage .wrap-cart {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.CartPage .wrap-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    background-color: rgb(238, 238, 238);
+    padding-left: 8rem;
+    padding-right: 8rem;
+
+}
+.CartPage .wrap-bottom .wrap-bottom-right {
+    display: flex;
+    gap: 1rem;
+}
+.CartPage .wrap-bottom .wrap-bottom-right .total-price {
+    color: red;
+}
+.CartPage .wrap-bottom .wrap-bottom-right button {
+    padding: 0.5rem 2rem;
+    font-size: 16px;
+    background-color: rgb(255, 85, 85);
+    color: white;
+}
