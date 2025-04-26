@@ -1,0 +1,77 @@
+.header {
+    background-color: #333;
+    padding: 1.5rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  .header .wrap-center .input-find {
+    width: 40vw;;
+    height: 2rem;
+    padding: 1rem;
+  }
+  .header .wrap-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header nav a {
+    color: white;
+    margin-left: 16px;
+    text-decoration: none;
+  }
+  .header nav a:hover {
+    text-decoration: underline;
+  }
+  .header .wrap-avatar {
+    margin-right: 1rem;
+  }
+  .header .avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+  .header .menuPerson {
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+  }
+  .header .wrap-menu {
+    width: 15rem;
+    height: 22rem;
+    top: 1.5rem;
+    right: 2rem;
+    padding-top: 3rem;
+    background-color: var(--blue-d);
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .header .wrap-bottom {
+    margin-bottom: 2rem;
+  }
+  .header .wrap-btns {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+  .header .wrap-btns * {
+    color: white    ;
+    font-size: 12px;
+  }
+  .header .icon {
+    font-size: 2rem;
+  }
+
+  .header .icon-mini {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+  }
+
+
+  

@@ -1,0 +1,11 @@
+.ProductList  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ProductList .wrap-products {
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+    justify-content:center;
+}
