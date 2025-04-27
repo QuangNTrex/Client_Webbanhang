@@ -18,13 +18,11 @@ const Header = () => {
     
     const logoutHandler = () => {
         dispatch(clearUser());
-        return;
         fetch(serverURL + "/api/account/logout", {
             method: "POST",
-        })
+        }).catch(err => console.log(err))
     }
     const registerSalerHandler = () => {
-        return;
         fetch(serverURL + "/api/account/registerseller", {
             method: "POST",
             header: {
@@ -36,19 +34,20 @@ const Header = () => {
                 dispatch(clearUser());
                 navigator("/signin");
             }
-        })
+        }).catch(err => console.log(err))
     }
 
     return (
         <header className="header">
-        <h1 onClick={() => {navigator("/")}}>Đồ Cũ</h1>
+        <h1 onClick={() => {navigator("/")}}><i class="bi bi-backpack2-fill"></i></h1>
         {/* avatar */}
         <div className="wrap-center">
             <input onKeyDown={(e) => {
                 if (e.key === "Enter" && keyword.trim()) {
                     navigator(`/search?q=${encodeURIComponent(keyword)}`);
+                    setKeyword("");
                 }
-            }} onChange={(e) => setKeyword(e.target.value)} type="text" className="input-find" placeholder='Tìm sản phẩm tại đây'/>
+            }} onChange={(e) => setKeyword(e.target.value)} value={keyword} type="text" className="input-find" placeholder='Tìm sản phẩm tại đây'/>
         </div>
         
         <div className="wrap-right">
@@ -59,6 +58,7 @@ const Header = () => {
                 <i class="bi bi-cart4 icon-mini"></i>
             </div>
         </div>
+        {/* menu */}
         {showMenuPerson && <div className="menuPerson" onClick={() => {setShowMenuPerson(false)}}>
             <div className="wrap-menu">
                 <div className="wrap-top">
@@ -67,12 +67,15 @@ const Header = () => {
                             <h5 className="email">{email}</h5>
                         </div>
                     </div>
+                <div className="wrap-center">
+                    <Link className="link" to="/order">đơn đã đặt</Link>
+                </div>
                 <div className="wrap-bottom">
                     <div className="wrap-btns">
                         {isLogin && <Link onClick={logoutHandler}>logout</Link>}
-                        {!isSaler && <Link onClick={registerSalerHandler}>register saler</Link>}
-                        {!isLogin &&  <Link to="/signin">login</Link>}
-                        {!isLogin &&  <Link to="/signup">sign up</Link>}
+                        {!isSaler && <Link onClick={registerSalerHandler}>đăng kí người bán</Link>}
+                        {!isLogin &&  <Link to="/signin">đăng nhập</Link>}
+                        {!isLogin &&  <Link to="/signup">đăng kí</Link>}
                     </div>
                 </div>
             </div>

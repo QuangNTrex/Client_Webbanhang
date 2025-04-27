@@ -1,0 +1,36 @@
+.UserDetail {
+    padding: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+}
+.UserDetail .wrap-top-- {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid red;
+    padding: 4rem;
+}
+.UserDetail .wrap-top .wrap-top-left .avatar {
+    width: 5rem;
+}
+.UserDetail .wrap-top .wrap-top-left .name {
+    margin: 0;
+
+}
+.UserDetail .wrap-top .wrap-top-left {
+    display: flex;
+    gap: 2rem;
+    justify-content: top;
+}
+.UserDetail .wrap-top .wrap-top-left .username {
+    text-align: left;
+    font-size: 12px;
+}
+.UserDetail .wrap-top .wrap-top-right {
+    display: flex;
+    gap: 3rem;
+}
+.UserDetail .wrap-bottom {
+    
+}

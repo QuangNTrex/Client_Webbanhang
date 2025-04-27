@@ -12,7 +12,7 @@ const CartPage = () => {
     const navigate = useNavigate();
 
     const buyHandler = () => {
-        navigate("/checkout");
+        navigate("/checkout", {state: {cart: cart.filter(item => item.checked)}});
     }
 
     return (

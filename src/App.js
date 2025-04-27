@@ -9,6 +9,8 @@ import ProductDetailPage from './Page/ProductDetailPage';
 import CartPage from './Page/CartPage';
 import OrderPage from './Page/OrderPage';
 import CheckoutPage from './Page/CheckoutPage';
+import CategoryPage from './Page/CategoryPage';
+import UserDetailPage from './Page/UserDetailPage';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
               <Route path="/cart" element={<CartPage/>}/>
               <Route path="/order" element={<OrderPage/>}/>
               <Route path="/checkout" element={<CheckoutPage/>}/>
+              <Route path="/category/:id" element={<CategoryPage/>}/>
+              <Route path="/user/:id" element={<UserDetailPage/>}/>
 
             </Route>
             <Route path="/signin" element={<SignInPage />} />

@@ -4,13 +4,12 @@ import "./CheckoutItem.css"
 import { addProduct, changeProduct, deleteProduct } from "../../redux/cartSlice";
 
 
-const CheckoutItem = ({product, quantity, checked, changeValueHandler=() => {}}) => {
+const CheckoutItem = ({product, quantity = 1}) => {
     const dispatch = useDispatch();
-    function shortenString(str, num = 50) {
+    function shortenString(str = "", num = 50) {
         if (str.length <= num) return str;
         return str.slice(0, num) + '...';
       }
-      console.log(checked);
   return (
     <div className="CheckoutItem">
         <div className="wrap-left">

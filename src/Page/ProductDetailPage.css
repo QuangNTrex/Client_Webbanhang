@@ -4,6 +4,8 @@
 .ProductDetailPage .wrap-top {
     display: flex;
     gap: 2rem;
+    padding-left: 4rem;
+    padding-bottom: 2rem;
 }
 .ProductDetailPage .wrap-top * {
     text-align: left;

@@ -1,0 +1,17 @@
+.NavCategory {
+    padding: 4rem;
+}
+.NavCategory .wrap-all {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding-top: 2rem;
+    cursor: context-menu;
+}
+.NavCategory .title {
+    text-align: left;
+    margin: 0;
+    margin-left: 4rem;
+    font-size: 2rem;
+}

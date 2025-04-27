@@ -1,0 +1,50 @@
+.CheckoutPage .wrap-top {
+    
+}
+.CheckoutPage .wrap-top .wrap-info{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 4rem;
+}
+.CheckoutPage .wrap-top .wrap-info .wrap-top-left .title {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    color: red;
+    font-size: 1.5rem;
+}
+.CheckoutPage .wrap-top .wrap-info .wrap-top-left .wrap-name-phonenumber {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+}
+
+.CheckoutPage .wrap-top .wrap-info .wrap-top-middle .address {
+    font-size: 1.5rem;
+    
+}
+.CheckoutPage .wrap-bottom {
+    padding: 6rem;
+    width: fit-content;
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    text-align: right;
+
+
+}
+.CheckoutPage .wrap-bottom .wrap-bottom-right {
+    padding-right: 8rem;
+}
+.CheckoutPage .wrap-bottom .wrap-price {
+    display: flex;
+    gap: 1rem;
+}
+.CheckoutPage .wrap-bottom .btn-buy {
+    padding: 1rem 2rem;
+    background-color: rgb(255, 76, 76);
+    color: white;
+    border: 0;
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { serverURL } from '../libs/http';
 import "./ProductDetailPage.css";
 import { useDispatch } from 'react-redux';
@@ -7,8 +7,10 @@ import { addProduct } from '../redux/cartSlice';
 
 const ProductDetailPage = () => {
     const  dispatch = useDispatch();
+    const navigator = useNavigate();
     const {id} = useParams();
     const [product, setProduct] = useState({user: {
+        userID: "ahihi",
         avatarUrl: "https://down-vn.img.susercontent.com/file/vn-11134216-7r98o-lvvpsh3mxz2z4c@resize_w160_nl.webp",
         name: "MuscleStore -Thực Phẩm Bổ Sung",
     }, productID: "1111",price: 1000,title: "Creatine Monohydrate - Ostrovit (300g, 500g) Tăng Cơ, Tăng Sức Mạnh & Hiệu Suất Tập Luyện", description: "OstroVit Creatine Monohydrate là sản phẩm bổ sung creatine monohydrate với mức độ vi mô hóa tuyệt vời. Creatine là một chất bổ sung được biết đến và sử dụng rộng rãi. Hiệu quả của nó đã được xác nhận bởi nhiều nghiên cứu khoa học. Nó cung cấp sự phát triển cơ bắp tốt hơn, tái tạo hiệu quả và năng lượng để tập luyện lâu hơn, hiệu quả hơn. Creatine là một hợp chất hóa học hữu cơ xuất hiện tự nhiên trong cơ thể con người. Nó thường được cung cấp cùng với các sản phẩm từ thịt động vật, trứng hoặc cá. Tác dụng có lợi của nó dựa trên một cơ chế đơn giản giải phóng năng lượng dưới dạng các phân tử năng lượng cao ATP (adenosine triphosphate) thông qua sự phân hủy phosphocreatine trong cơ. Mặc dù thực tế là creatine cũng có trong thực phẩm, nhưng cách duy nhất để giúp cơ bắp của chúng ta bão hòa 100% với creatine là bổ sung nó liên tục", images: "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lzr6bvyk5kf503"});
@@ -28,6 +30,9 @@ const ProductDetailPage = () => {
 
     const addToCart = () => {
         dispatch(addProduct({product: product, quantity: inputQuantity}));
+    }
+    const buyHandler = () => {
+        navigator("/checkout", { state: {cart: [{product: product, quantity: inputQuantity}]} });
     }
 
 
@@ -57,7 +62,7 @@ const ProductDetailPage = () => {
                         </div>
 
                         <div className="wrap-btn wrap-btn-buy">
-                            <span className="btn btn-buy">Mua Ngay</span>
+                            <span className="btn btn-buy" onClick={buyHandler}>Mua Ngay</span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +77,7 @@ const ProductDetailPage = () => {
                 <div className="wrap-info">
 
                 <h3 className="name">{product.user.name}</h3>
-                    <button className="show">Xem shop</button>
+                    <button className="show" onClick={() => {navigator("/user/" + product.user.userID)}}>Xem shop</button>
                 </div>
 
             </div>
