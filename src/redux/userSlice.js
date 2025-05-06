@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  userID: "123",
   name: "Nguyuen Tien Quang",
   username: 'dev.quangnt',
   email: 'dev.quangnt@gmail.com',
@@ -9,6 +10,7 @@ const initialState = {
   role: "user",
   address: "abcabcabcabn jn ajdn ajdn akjsdn jn adkjsna daca",
   phoneNumber: "0987665432",
+  role: "SALER",
 };
 
 const userSlice = createSlice({

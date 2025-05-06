@@ -11,6 +11,8 @@ import OrderPage from './Page/OrderPage';
 import CheckoutPage from './Page/CheckoutPage';
 import CategoryPage from './Page/CategoryPage';
 import UserDetailPage from './Page/UserDetailPage';
+import UserInfoPage from './Page/UserInfoPage';
+import AddProductPage from './Page/AddProductPage';
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
               <Route path="/checkout" element={<CheckoutPage/>}/>
               <Route path="/category/:id" element={<CategoryPage/>}/>
               <Route path="/user/:id" element={<UserDetailPage/>}/>
+              <Route path="/user/info/" element={<UserInfoPage/>}/>
+              <Route path="/product/add/" element={<AddProductPage/>}/>
 
             </Route>
             <Route path="/signin" element={<SignInPage />} />

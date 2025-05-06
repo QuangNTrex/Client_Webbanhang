@@ -69,6 +69,8 @@ const Header = () => {
                     </div>
                 <div className="wrap-center">
                     <Link className="link" to="/order">đơn đã đặt</Link>
+                    <Link className="link" to="/user/info">trang cá nhân</Link>
+
                 </div>
                 <div className="wrap-bottom">
                     <div className="wrap-btns">

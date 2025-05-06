@@ -7,6 +7,12 @@
     align-items: center;
     position: relative;
   }
+  .header .wrap-center {
+    display: flex;
+    
+    gap: 2rem;
+    justify-content: center;
+  }
   .header .wrap-center .input-find {
     width: 40vw;;
     height: 2rem;
