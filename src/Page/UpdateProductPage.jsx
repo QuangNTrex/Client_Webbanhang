@@ -50,7 +50,7 @@ const UpdateProductPage = () => {
     
     return <div className="UpdateProductPage">
     <h2 className="title">Cập nhật sản phẩm</h2>
-    <ProductForm onDelete={deleteHandler} product={product} onSubmit={submitHandler}/>
+    <ProductForm type="update" onDelete={deleteHandler} product={product} onSubmit={submitHandler}/>
     
 </div>
 };

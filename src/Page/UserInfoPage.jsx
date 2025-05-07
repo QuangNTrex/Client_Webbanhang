@@ -177,6 +177,7 @@ const UserInfoPage = () => {
             <div className="wrap-btn">
                 <button className="btn btn-update" onClick={updateAccountHandler}>Cập nhật</button>
                 {isSaler &&  <button className="btn btn-update" onClick={() => {navigation("/product/add")}}>Thêm Sản Phẩm</button>} 
+                <button className="btn btn-update" onClick={() => {navigate("/user/repassword")}}>Đổi mật khẩu</button>
             </div>
         </div>
         {isSaler && <div className="wrap--" style={{marginTop: "4rem"}} >

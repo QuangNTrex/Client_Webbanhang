@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { serverURL } from '../../libs/http';
 
-const ProductForm = ({onSubmit, product={}, onDelete}) => {
+const ProductForm = ({type="create",onSubmit, product={}, onDelete}) => {
     const localUser = useSelector(state => state.user);
     const userID = localUser.userID;
     const [categories, setCategories] = useState([]);
@@ -69,7 +69,7 @@ const ProductForm = ({onSubmit, product={}, onDelete}) => {
                         }
                         
                         onSubmit(data);
-                    }}>Thêm sản phẩm</button>
+                    }}>{type==="update" ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}</button>
                     {onDelete && <button className="btn btn-delete" onClick={onDelete.bind(null, product.productID)}>Xóa sản phẩm</button>}
             </div>
                 

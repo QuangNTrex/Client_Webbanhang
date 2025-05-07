@@ -14,6 +14,7 @@ import UserDetailPage from './Page/UserDetailPage';
 import UserInfoPage from './Page/UserInfoPage';
 import AddProductPage from './Page/AddProductPage';
 import UpdateProductPage from './Page/UpdateProductPage';
+import ChangePasswordPage from './Page/ChangePasswordPage';
 
 
 function App() {
@@ -33,11 +34,13 @@ function App() {
               <Route path="/user/info/" element={<UserInfoPage/>}/>
               <Route path="/product/add/" element={<AddProductPage/>}/>
               <Route path="/product/update/" element={<UpdateProductPage/>}/>
+              <Route path="/product/update/" element={<UpdateProductPage/>}/>
               
 
             </Route>
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/user/repassword" element={<ChangePasswordPage />} />
           </Routes>
         </Router>
     </div>
