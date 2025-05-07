@@ -13,6 +13,7 @@ import CategoryPage from './Page/CategoryPage';
 import UserDetailPage from './Page/UserDetailPage';
 import UserInfoPage from './Page/UserInfoPage';
 import AddProductPage from './Page/AddProductPage';
+import UpdateProductPage from './Page/UpdateProductPage';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
               <Route path="/user/:id" element={<UserDetailPage/>}/>
               <Route path="/user/info/" element={<UserInfoPage/>}/>
               <Route path="/product/add/" element={<AddProductPage/>}/>
+              <Route path="/product/update/" element={<UpdateProductPage/>}/>
+              
 
             </Route>
             <Route path="/signin" element={<SignInPage />} />

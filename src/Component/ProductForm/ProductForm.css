@@ -18,10 +18,22 @@
 }
 .ProductForm .wrap-bottom {
     padding: 4rem;
+    
+}
+.ProductForm .wrap-bottom .wrap-btn {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
 }
 .ProductForm .wrap-bottom .btn-update {
     border: 0;
     padding: 1rem 2rem;
     background-color: rgb(54, 54, 255);
+    color: white
+}
+.ProductForm .wrap-bottom .btn-delete {
+    border: 0;
+    padding: 1rem 2rem;
+    background-color: rgb(255, 54, 54);
     color: white
 }

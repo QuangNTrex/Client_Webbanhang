@@ -66,6 +66,9 @@ const Header = () => {
                         <div className="wrap-email">
                             <h5 className="email">{email}</h5>
                         </div>
+                        <div className="state">
+                            {isSaler ? <p>bạn đang là người bán</p> : <p>Bạn chưa có vai trò người bán</p>}
+                        </div>
                     </div>
                 <div className="wrap-center">
                     <Link className="link" to="/order">đơn đã đặt</Link>
