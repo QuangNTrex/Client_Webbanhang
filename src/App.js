@@ -28,8 +28,7 @@ function App() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      navigate("/signin");
-      return;
+
     } else {
       fetch(serverURL + "/api/account", {
         method: "GET",

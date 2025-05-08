@@ -10,24 +10,32 @@ import { serverURL } from "../libs/http";
 const ChangePasswordPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    const token = localStorage.getItem("token");
+
     const submitHandler = (data) => {
+        console.log({
+            currentPassword: data.currentPassword,
+            newPassword: data.newPassword
+        })
         fetch(serverURL + "/api/account/resetpassword", {
-            method: "GET",
-            header: {
+            method: "PUT",
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({CurrentPassword: data.CurrentPassword, NewPassword: data.newPassword})
-        }).then(res => res.json()).then(data => {
+            body: JSON.stringify({
+                CurrentPassword: data.currentPassword,
+                NewPassword: data.newPassword
+            })
+        }).then(data => {
             navigate("/signin");
         }).catch(err => console.log(err))
     }
-    
+
 
     return (
         <div className="ChangePasswordPage">
-            <PasswordForm onSubmit={submitHandler}/>
+            <PasswordForm onSubmit={submitHandler} />
         </div>
     );
 };

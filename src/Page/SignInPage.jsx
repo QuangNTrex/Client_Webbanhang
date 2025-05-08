@@ -13,7 +13,10 @@ const SignInPage = () => {
   const handleLogin = (data) => {
     fetch(serverURL + "/api/account/signin", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+
+      },
       body: JSON.stringify({ Email: data.username, Password: data.password })
     })
       .then(response => response.json())

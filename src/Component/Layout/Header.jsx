@@ -19,16 +19,27 @@ const Header = () => {
     const logoutHandler = () => {
         dispatch(clearUser());
         localStorage.removeItem("token")
+        navigator("/signin");
+        return;
+
         fetch(serverURL + "/api/account/logout", {
             method: "POST",
-        }).catch(err => console.log(err))
+        })
+            .then(res => {
+                if (res.ok) {
+                    dispatch(clearUser());
+                    navigator("/signin");
+                }
+            })
+            .catch(err => console.log(err))
     }
     const registerSalerHandler = () => {
+        const token = localStorage.getItem("token")
         fetch(serverURL + "/api/account/registerseller", {
             method: "POST",
             header: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                'Authorization': `Bearer ${token}`
             }
         }).then(res => {
             if (res.ok) {
@@ -68,20 +79,20 @@ const Header = () => {
                             <h5 className="email">{email}</h5>
                         </div>
                         <div className="state">
-                            {isSaler ? <p>bạn đang là người bán</p> : <p>Bạn chưa có vai trò người bán</p>}
+                            {isSaler ? <p>Bạn đang là người bán</p> : <p>Bạn chưa có vai trò người bán</p>}
                         </div>
                     </div>
                     <div className="wrap-center">
-                        <Link className="link" to="/order">đơn đã đặt</Link>
-                        <Link className="link" to="/user/info">trang cá nhân</Link>
+                        <Link className="link" to="/order">Đơn đã đặt</Link>
+                        <Link className="link" to="/user/info">Trang cá nhân</Link>
 
                     </div>
                     <div className="wrap-bottom">
                         <div className="wrap-btns">
-                            {isLogin && <Link onClick={logoutHandler}>logout</Link>}
-                            {!isSaler && <Link onClick={registerSalerHandler}>đăng kí người bán</Link>}
-                            {!isLogin && <Link to="/signin">đăng nhập</Link>}
-                            {!isLogin && <Link to="/signup">đăng kí</Link>}
+                            {isLogin && <Link onClick={logoutHandler}>Đăng xuất</Link>}
+                            {!isSaler && <Link onClick={registerSalerHandler}>Đăng ký người bán</Link>}
+                            {!isLogin && <Link to="/signin">Đăng nhập</Link>}
+                            {!isLogin && <Link to="/signup">Đăng ký</Link>}
                         </div>
                     </div>
                 </div>
