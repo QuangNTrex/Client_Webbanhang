@@ -10,28 +10,30 @@ const CartPage = () => {
     const cart = useSelector(state => state.cart.cart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { username } = useSelector(state => state.user)
 
     const buyHandler = () => {
-        navigate("/checkout", {state: {cart: cart.filter(item => item.checked)}});
+        if (!username) navigate("/signin", { state: { cart: cart.filter(item => item.checked), link: "/checkout" } })
+        else navigate("/checkout", { state: { cart: cart.filter(item => item.checked) } });
     }
 
     return (
         <div className="CartPage">
             <div className="wrap-top">
 
-            <h3 className="title">Giỏ hàng</h3>
-            {cart.length === 0 && <p>Trống</p>}
-            <div className="wrap-cart">
-                {cart.map(item => <CartItem product={item.product} quantity={item.quantity} checked={item.checked}/>)}
-            </div>
+                <h3 className="title">Giỏ hàng</h3>
+                {cart.length === 0 && <p>Trống</p>}
+                <div className="wrap-cart">
+                    {cart.map(item => <CartItem product={item.product} quantity={item.quantity} checked={item.checked} />)}
+                </div>
             </div>
             <div className="wrap-bottom">
                 <div className="wrap-bottom-left">
-                     <button className="btn btn-check-all" onClick={() => {
+                    <button className="btn btn-check-all" onClick={() => {
                         cart.map(e => {
-                            dispatch(changeProduct({product: e.product, quantity: e.quantity, checked: true}))
+                            dispatch(changeProduct({ product: e.product, quantity: e.quantity, checked: true }))
                         })
-                     }}>Chọn tất cả</button>
+                    }}>Chọn tất cả</button>
                 </div>
                 <div className="wrap-bottom-right">
                     <h3 className="title">Tổng cộng {'('}{cart.reduce((total, item) => total + item.quantity, 0)} sản phẩm {')'}: </h3>

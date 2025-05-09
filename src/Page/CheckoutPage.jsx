@@ -5,6 +5,7 @@ import CheckoutItem from "../Component/UI/CheckoutItem";
 import { serverURL } from "../libs/http";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { pushNotify } from "../redux/notifySlice";
 
 
 const CheckoutPage = () => {
@@ -21,9 +22,21 @@ const CheckoutPage = () => {
             BuyerID: user.userID,
             VendorID: cart[0].product.userID,
             TotalPrice: cart.reduce((total, item) => total + item.quantity * item.product.price * item.checked, 0)
-            ,OrderDetails: [],MethodPay: methodPay
+            ,
+            OrderDetails: orderData.cart.map(e => {
+                return {
+                    productID: e.product.productID,
+                    price: e.product.price,
+                    quantity: e.quantity,
+                    ProductID: e.product.productID,
+                    Price: e.product.price,
+                    Quantity: e.quantity,
+                }
+            }),
+            MethodPay: methodPay
         }
         console.log(data);
+        return;
         fetch(serverURL + "/api/order", {
             method: "POST",
             headers: {
@@ -35,10 +48,12 @@ const CheckoutPage = () => {
         })
             .then(res => res.json())
             .then(data => {
+                dispatch(pushNotify({ title: "Đặt hành thành công!" }))
                 console.log("acpt", data)
                 navigate("/");
             })
             .catch(err => {
+                dispatch(pushNotify({ title: "Đặt hành that bai!", state: "ERR" }))
                 console.log("thanh toan", err)
             })
 
@@ -69,10 +84,10 @@ const CheckoutPage = () => {
                 <div className="wrap-bottom-right">
                     <div className="wrap-method-pay">
                         <p className="title">Phương thức thanh toán</p>
-                        <select name="" id="" onChange={(e) => {setMethodPay(e.target.value)}}>
+                        <select name="" id="" onChange={(e) => { setMethodPay(e.target.value) }}>
                             <option value="" hidden selected>Chọn phương thức thanh toán</option>
                             <option value="Thanh toán cod (Thanh toán khi nhận hàng)">Thanh toán cod (Thanh toán khi nhận hàng)</option>
-                        
+
                         </select>
                     </div>
                     <div className="wrap-price">

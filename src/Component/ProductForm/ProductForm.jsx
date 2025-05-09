@@ -35,6 +35,8 @@ const ProductForm = ({ type = "create", onSubmit, product = { categoryID: -1 }, 
 
     const navigation = useNavigate();
     console.log(product, "abc ")
+    console.log(JSON.stringify(categories))
+    console.log(JSON.stringify(product))
 
     return <div className="ProductForm">
 
@@ -44,7 +46,7 @@ const ProductForm = ({ type = "create", onSubmit, product = { categoryID: -1 }, 
             <select ref={categoryRef} defaultValue={product.categoryID || ''}>
                 <option hidden selected value="">Chọn thể loại</option>
                 {categories.map(e => (
-                    <option key={e.categoryID} selected={e.categoryID === product.categoryID} value={e.categoryID}>
+                    <option key={e.categoryId} selected={e.categoryId === product.categoryID} value={e.categoryId}>
                         {e.categoryName}
                     </option>
                 ))}

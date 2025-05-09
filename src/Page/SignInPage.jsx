@@ -2,7 +2,7 @@
 import React from 'react';
 import AuthForm from '../Component/AuthForm/AuthForm';
 import { serverURL } from "../libs/http";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
 import { pushNotify } from '../redux/notifySlice';
@@ -10,6 +10,9 @@ import { pushNotify } from '../redux/notifySlice';
 const SignInPage = () => {
 
   const navigation = useNavigate();
+  const state = useLocation().state || {};
+  console.log(JSON.stringify(state));
+
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const handleLogin = (data) => {
@@ -28,8 +31,11 @@ const SignInPage = () => {
         if (result.token) {
           // Lưu token vào localStorage
           localStorage.setItem('token', result.token);
-          dispatch(pushNotify({title: "Đăng nhập thành công, chào mừng " + result.user.name + " đến với trang mua sắm"}))
-          navigation('/');
+          dispatch(pushNotify({ title: "Đăng nhập thành công, chào mừng " + result.user.name + " đến với trang mua sắm" }))
+          if (state.link) {
+            navigation(state.link, { state });
+          }
+          else navigation('/');
         }
       })
       .catch(error => console.error("Login error:", error));

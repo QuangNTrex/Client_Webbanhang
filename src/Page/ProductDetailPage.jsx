@@ -4,6 +4,7 @@ import { serverURL } from '../libs/http';
 import "./ProductDetailPage.css";
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../redux/cartSlice';
+import { pushNotify } from '../redux/notifySlice';
 
 const ProductDetailPage = () => {
     const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const ProductDetailPage = () => {
 
     const addToCart = () => {
         dispatch(addProduct({ product: product, quantity: inputQuantity }));
+        dispatch(pushNotify({ title: "them vao gio hang thanh cong" }))
     }
     const buyHandler = () => {
         navigator("/checkout", { state: { cart: [{ product: product, quantity: inputQuantity }] } });

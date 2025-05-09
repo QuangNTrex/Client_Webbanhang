@@ -3,23 +3,28 @@ import React, { useEffect, useState } from 'react';
 import { serverURL } from '../libs/http';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProductForm from '../Component/ProductForm/ProductForm';
+import { useDispatch } from 'react-redux';
+import { pushNotify } from '../redux/notifySlice';
 
 
 const UpdateProductPage = () => {
     const product = useLocation().state;
+    const token = localStorage.getItem("token");
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const deleteHandler = (productID) => {
         fetch(serverURL + "/api/product/" + product.productID, {
             method: "DELETE",
-            header: {
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                'Authorization': `Bearer ${token}`
             },
 
-        }).then(res => res.json()).then(data => {
+        }).then(res => {
             navigate("/")
+            dispatch(pushNotify({ title: "xoa san pham thanh cong" }))
         }).catch(err => {
-            navigate("/")
+            dispatch(pushNotify({ title: "xoa san pham that bai", state: "ERR" }))
         })
     }
 
@@ -28,7 +33,7 @@ const UpdateProductPage = () => {
             method: "PUT",
             header: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
                 ProductID: product.productID,
@@ -43,14 +48,16 @@ const UpdateProductPage = () => {
             })
         }).then(res => res.json()).then(data => {
             navigate("/")
+            dispatch(pushNotify({ title: "cap nhat san pham thanh cong" }))
         }).catch(err => {
             navigate("/")
+            dispatch(pushNotify({ title: "cap nhat san pham that bai", state: "ERR" }))
         })
     }
 
     return <div className="UpdateProductPage">
         <h2 className="title">Cập nhật sản phẩm</h2>
-        <ProductForm type="update" product={product} onDelete={deleteHandler} product={product} onSubmit={submitHandler} />
+        <ProductForm type="update" product={product} onDelete={deleteHandler} onSubmit={submitHandler} />
 
     </div>
 };

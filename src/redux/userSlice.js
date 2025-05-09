@@ -30,6 +30,19 @@ const userSlice = createSlice({
       state.email = action.payload.email;
 
     },
+    pushUser(state, action) {
+      state.userID = action.payload.userID || action.payload.userId;
+      state.name = action.payload.name;
+      state.username = action.payload.username;
+      state.email = action.payload.email;
+      state.avatarUrl = action.payload.avatarUrl;
+      state.role = action.payload.role;
+      state.address = action.payload.address;
+      state.phoneNumber = action.payload.phoneNumber;
+      state.email = action.payload.email;
+      state.email = action.payload.email;
+
+    },
     clearUser(state) {
       state.username = '';
       state.email = '';
@@ -39,5 +52,5 @@ const userSlice = createSlice({
   }
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, pushUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;

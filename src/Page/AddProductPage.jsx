@@ -32,9 +32,9 @@ const AddProductPage = () => {
         }).then(res => res.json()).then(data => {
             console.log(data)
             navigate("/user/info")
-            dispatch(pushNotify({title: "Thêm thành công!", }))
+            dispatch(pushNotify({ title: "Thêm thành công!", }))
         }).catch(err => {
-            dispatch(pushNotify({title: "Thêm thất bại!", state: "ERR"}))
+            dispatch(pushNotify({ title: "Thêm thất bại!", state: "ERR" }))
             //navigate("/")
         })
     }
@@ -42,7 +42,6 @@ const AddProductPage = () => {
         <div className="AddProductPage">
             <h2 className="title">Thêm sản phẩm</h2>
             <ProductForm onSubmit={submitHandler} />
-
         </div>
     );
 };

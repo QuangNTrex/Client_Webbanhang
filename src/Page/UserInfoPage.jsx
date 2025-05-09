@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { serverURL } from "../libs/http";
 import ProductList from "../Component/UI/ProductList";
 import { pushNotify } from "../redux/notifySlice";
+import { pushUser } from "../redux/userSlice.js";
 
 const UserInfoPage = () => {
     const localUser = useSelector(state => state.user);
@@ -67,7 +68,7 @@ const UserInfoPage = () => {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                'Authorization': `Bearer ${token}`
             },
         }).then(res => res.json()).then(data => {
             navigation("/");
@@ -96,12 +97,12 @@ const UserInfoPage = () => {
         })
             .then(res => res.json())
             .then(data => {
-                dispatch(pushNotify({title: "Cập nhật thành công!"}))
-                dispatch(setUser(data));
-                navigation("/");
+                dispatch(pushNotify({ title: "Cập nhật thành công!" }))
+                dispatch(pushUser(data));
+
             }).catch(err => {
-                dispatch(pushNotify({title: "Cập nhật thất bại!", state: "ERR"}))
-                console.log("error", err)
+                dispatch(pushNotify({ title: "Cập nhật thất bại!", state: "ERR" }))
+                console.error("error", err)
             })
     }
 
