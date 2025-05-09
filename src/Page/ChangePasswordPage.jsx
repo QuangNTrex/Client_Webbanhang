@@ -1,7 +1,6 @@
 // src/pages/ChangePasswordPage.jsx
 import { useDispatch } from "react-redux";
 
-import OrderItem from "../Component/UI/OrderItem";
 import PasswordForm from "../Component/AuthForm/PasswordForm";
 import { useNavigate } from "react-router-dom";
 import { serverURL } from "../libs/http";
