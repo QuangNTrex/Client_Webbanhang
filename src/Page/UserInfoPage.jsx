@@ -5,6 +5,7 @@ import "./UserInfoPage.css"
 import { useEffect, useRef, useState } from "react";
 import { serverURL } from "../libs/http";
 import ProductList from "../Component/UI/ProductList";
+import { pushNotify } from "../redux/notifySlice";
 
 const UserInfoPage = () => {
     const localUser = useSelector(state => state.user);
@@ -95,9 +96,11 @@ const UserInfoPage = () => {
         })
             .then(res => res.json())
             .then(data => {
+                dispatch(pushNotify({title: "Cập nhật thành công!"}))
                 dispatch(setUser(data));
                 navigation("/");
             }).catch(err => {
+                dispatch(pushNotify({title: "Cập nhật thất bại!", state: "ERR"}))
                 console.log("error", err)
             })
     }

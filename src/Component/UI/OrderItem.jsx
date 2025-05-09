@@ -7,7 +7,7 @@ import { serverURL } from '../../libs/http';
 
 
 
-const OrderItem = ({ order, onDeleteOrder = () => { } }) => {
+const OrderItem = ({unCancelButton, order, onDeleteOrder = () => { } }) => {
     const [vendor, setVendor] = useState({})
     const [buyer, setBuyer] = useState({})
     const token = localStorage.getItem("token");
@@ -66,7 +66,7 @@ const OrderItem = ({ order, onDeleteOrder = () => { } }) => {
                 <div className="OrderItem--wrap-bottom-right">
 
                     <h3 className="total-price">Thành tiền: {order.totalPrice} VND</h3>
-                    <button className="btn-delete" onClick={onDeleteOrder.bind(null, order.orderID)}>Hủy đơn hàng</button>
+                    {!unCancelButton && <button className="btn-delete" onClick={onDeleteOrder.bind(null, order)}>Hủy đơn hàng</button>}
                 </div>
             </div>
         </div>

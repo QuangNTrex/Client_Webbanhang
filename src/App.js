@@ -19,6 +19,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setUser } from './redux/userSlice';
 import { serverURL } from './libs/http';
+import ConfirmOrderCancellationPage from './Page/ConfirmOrderCancellationPage';
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
           <Route path="/detail/:id" element={<ProductDetailPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/order" element={<OrderPage />} />
+          <Route path="/order/confirm_cancle" element={<ConfirmOrderCancellationPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/category/:id" element={<CategoryPage />} />
           <Route path="/user/:id" element={<UserDetailPage />} />

@@ -38,6 +38,14 @@
 .CheckoutPage .wrap-bottom .wrap-bottom-right {
     padding-right: 8rem;
 }
+.CheckoutPage .wrap-bottom .wrap-method-pay {
+    display: flex;
+    gap: 2rem;
+}
+.CheckoutPage .wrap-bottom .wrap-method-pay select {
+    outline: 0;
+    border: 0;
+}
 .CheckoutPage .wrap-bottom .wrap-price {
     display: flex;
     gap: 1rem;

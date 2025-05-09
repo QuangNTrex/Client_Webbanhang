@@ -7,6 +7,22 @@
     align-items: center;
     position: relative;
   }
+  .header .wrap-notify {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
+  .header .wrap-notify .notify {
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 4rem;
+  }
+  .header .wrap-notify .notify * {
+    margin: 0;
+  }
   .header .wrap-center {
     display: flex;
     

@@ -4,9 +4,11 @@ import "./OrderPage.css"
 import { useEffect, useState } from "react";
 import { serverURL } from "../libs/http";
 import OrderItem from "../Component/UI/OrderItem";
+import { useNavigate } from "react-router-dom";
 
 
 const OrderPage = () => {
+    const navigator = useNavigate();
     const token = localStorage.getItem("token");
     const dispatch = useDispatch();
     const [orders, setOrders] = useState([{
@@ -34,8 +36,10 @@ const OrderPage = () => {
         }]
     }]);
     const user = useSelector(state => state.user);
-    const deleteOrderHandler = (orderID) => {
-        fetch(serverURL + "/api/order/id?id=" + orderID, {
+    const deleteOrderHandler = (order) => {
+        navigator("/order/confirm_cancle", {state: order});
+        return;
+        fetch(serverURL + "/api/order/id?id=" + order.orderID, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -47,7 +51,7 @@ const OrderPage = () => {
             console.log(err);
         })
 
-        setOrders(prev => prev.filter(e => e.orderID !== orderID));
+        setOrders(prev => prev.filter(e => e.orderID !== order.orderID));
     }
 
     useEffect(() => {

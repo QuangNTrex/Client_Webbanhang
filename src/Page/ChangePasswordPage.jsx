@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import PasswordForm from "../Component/AuthForm/PasswordForm";
 import { useNavigate } from "react-router-dom";
 import { serverURL } from "../libs/http";
+import { pushNotify } from "../redux/notifySlice";
 
 
 const ChangePasswordPage = () => {
@@ -12,6 +13,7 @@ const ChangePasswordPage = () => {
     const token = localStorage.getItem("token");
 
     const submitHandler = (data) => {
+        
         console.log({
             currentPassword: data.currentPassword,
             newPassword: data.newPassword
@@ -27,10 +29,14 @@ const ChangePasswordPage = () => {
                 NewPassword: data.newPassword
             })
         }).then(data => {
+            dispatch(pushNotify({title: "Đổi mật khẩu thành công!",}))
             navigate("/signin");
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            dispatch(pushNotify({title: "Cập nhật thất bại!", state: "ERR"}))
+            console.log(err);
+            navigate("/");
+        })
     }
-
 
     return (
         <div className="ChangePasswordPage">

@@ -5,8 +5,10 @@ import { serverURL } from "../libs/http";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
+import { pushNotify } from '../redux/notifySlice';
 
 const SignInPage = () => {
+
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
@@ -26,6 +28,7 @@ const SignInPage = () => {
         if (result.token) {
           // Lưu token vào localStorage
           localStorage.setItem('token', result.token);
+          dispatch(pushNotify({title: "Đăng nhập thành công, chào mừng " + result.user.name + " đến với trang mua sắm"}))
           navigation('/');
         }
       })

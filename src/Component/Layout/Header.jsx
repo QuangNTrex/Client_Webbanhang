@@ -1,13 +1,15 @@
 // src/components/Header.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import { useSelector } from 'react-redux';
 import { serverURL } from '../../libs/http';
 import { useDispatch } from 'react-redux';
 import { clearUser } from '../../redux/userSlice';
+import { deleteNotify, pushNotify } from '../../redux/notifySlice';
 
 const Header = () => {
+    const notify = useSelector(state => state.notify);
     const dispatch = useDispatch();
     const navigator = useNavigate();
     const { avatarUrl, username, email, role } = useSelector(state => state.user);
@@ -48,10 +50,22 @@ const Header = () => {
             }
         }).catch(err => console.log(err))
     }
+    useEffect(() => {
+        if(notify.title) {
+            setTimeout(() => {
+                dispatch(deleteNotify())
+            }, notify.time)
+        }
+    }, [notify])
 
     return (
         <header className="header">
-            <h1 onClick={() => { navigator("/") }}><i class="bi bi-backpack2-fill"></i></h1>
+            {notify.title && <div className="wrap-notify" onClick={() => {dispatch(deleteNotify())}}>
+                <div className="notify" style={{backgroundColor: notify.exp[notify.state].bgc, color: notify.exp[notify.state].col}} >
+                    <p style={{ color: notify.exp[notify.state].col}}>{notify.title}</p>
+                </div>
+            </div>}
+            <h1 onClick={() => { navigator("/") }}><i class="bi bi-backpack2-fill" onClick={() => {dispatch(pushNotify({title: "hello hello"}))}}></i></h1>
             {/* avatar */}
             <div className="wrap-center">
                 <input onKeyDown={(e) => {
@@ -71,6 +85,7 @@ const Header = () => {
                 </div>
             </div>
             {/* menu */}
+
             {showMenuPerson && <div className="menuPerson" onClick={() => { setShowMenuPerson(false) }}>
                 <div className="wrap-menu">
                     <div className="wrap-top">
