@@ -8,26 +8,37 @@ import ProductForm from "../Component/ProductForm/ProductForm";
 
 
 const AddProductPage = () => {
+    const token = localStorage.getItem("token");
     const navigate = useNavigate();
-   const submitHandler = (data) => {
-        fetch(serverURL + "/api/product" , {
-            method: "GET",
-            header: {
+    const submitHandler = (data) => {
+        console.log(data)
+        fetch(serverURL + "/api/product", {
+            method: "POST",
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+                categoryID: data.categoryID,
+                title: data.title,
+                price: data.price,
+                description: data.description,
+                condition: data.condition,
+                images: data.images,
+                location: data.location
+            })
         }).then(res => res.json()).then(data => {
-            navigate("/")
+            console.log(data)
+            navigate("/user/info")
         }).catch(err => {
-            navigate("/")
+            //navigate("/")
         })
-   }
+    }
     return (
         <div className="AddProductPage">
             <h2 className="title">Thêm sản phẩm</h2>
-            <ProductForm onSubmit={submitHandler}/>
-            
+            <ProductForm onSubmit={submitHandler} />
+
         </div>
     );
 };

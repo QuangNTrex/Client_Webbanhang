@@ -9,13 +9,13 @@ const UpdateProductPage = () => {
     const product = useLocation().state;
     const navigate = useNavigate();
     const deleteHandler = (productID) => {
-        fetch(serverURL + "/api/product/" + product.productID , {
+        fetch(serverURL + "/api/product/" + product.productID, {
             method: "DELETE",
             header: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer YOUR_TOKEN_HERE'
             },
-            
+
         }).then(res => res.json()).then(data => {
             navigate("/")
         }).catch(err => {
@@ -24,7 +24,7 @@ const UpdateProductPage = () => {
     }
 
     const submitHandler = (product) => {
-        fetch(serverURL + "/api/product/" + product.productID , {
+        fetch(serverURL + "/api/product/" + product.productID, {
             method: "PUT",
             header: {
                 'Content-Type': 'application/json',
@@ -47,12 +47,12 @@ const UpdateProductPage = () => {
             navigate("/")
         })
     }
-    
+
     return <div className="UpdateProductPage">
-    <h2 className="title">Cập nhật sản phẩm</h2>
-    <ProductForm type="update" onDelete={deleteHandler} product={product} onSubmit={submitHandler}/>
-    
-</div>
+        <h2 className="title">Cập nhật sản phẩm</h2>
+        <ProductForm type="update" product={product} onDelete={deleteHandler} product={product} onSubmit={submitHandler} />
+
+    </div>
 };
 
 export default UpdateProductPage;

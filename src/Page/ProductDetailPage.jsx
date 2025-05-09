@@ -6,33 +6,45 @@ import { useDispatch } from 'react-redux';
 import { addProduct } from '../redux/cartSlice';
 
 const ProductDetailPage = () => {
-    const  dispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigator = useNavigate();
-    const {id} = useParams();
-    const [product, setProduct] = useState({user: {
-        userID: "ahihi",
-        avatarUrl: "https://down-vn.img.susercontent.com/file/vn-11134216-7r98o-lvvpsh3mxz2z4c@resize_w160_nl.webp",
-        name: "MuscleStore -Thực Phẩm Bổ Sung",
-    }, productID: "1111",price: 1000,title: "Creatine Monohydrate - Ostrovit (300g, 500g) Tăng Cơ, Tăng Sức Mạnh & Hiệu Suất Tập Luyện", description: "OstroVit Creatine Monohydrate là sản phẩm bổ sung creatine monohydrate với mức độ vi mô hóa tuyệt vời. Creatine là một chất bổ sung được biết đến và sử dụng rộng rãi. Hiệu quả của nó đã được xác nhận bởi nhiều nghiên cứu khoa học. Nó cung cấp sự phát triển cơ bắp tốt hơn, tái tạo hiệu quả và năng lượng để tập luyện lâu hơn, hiệu quả hơn. Creatine là một hợp chất hóa học hữu cơ xuất hiện tự nhiên trong cơ thể con người. Nó thường được cung cấp cùng với các sản phẩm từ thịt động vật, trứng hoặc cá. Tác dụng có lợi của nó dựa trên một cơ chế đơn giản giải phóng năng lượng dưới dạng các phân tử năng lượng cao ATP (adenosine triphosphate) thông qua sự phân hủy phosphocreatine trong cơ. Mặc dù thực tế là creatine cũng có trong thực phẩm, nhưng cách duy nhất để giúp cơ bắp của chúng ta bão hòa 100% với creatine là bổ sung nó liên tục", images: "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lzr6bvyk5kf503"});
+    const { id } = useParams();
+    const [product, setProduct] = useState({});
+    const [user, setUser] = useState({});
     const [inputQuantity, setInputQuantity] = useState(1);
+    const token = localStorage.getItem("token")
     useEffect(() => {
-            return;
-            fetch(serverURL + "/api/product/" + id, {
+        fetch(serverURL + "/api/product/" + id, {
+            method: "GET",
+            header: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(res => res.json()).then(data => {
+            console.log(data);
+            setProduct(data);
+            //user
+            fetch(serverURL + "/api/account/" + data.userID, {
                 method: "GET",
                 header: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_TOKEN_HERE'
+                    'Authorization': `Bearer ${token}`
                 }
             }).then(res => res.json()).then(data => {
-                setProduct(data);
+                console.log(data);
+                setUser(data);
+
             }).catch(err => console.log(err))
-        }, [id]);
+        }).catch(err => console.log(err))
+
+
+    }, [id]);
 
     const addToCart = () => {
-        dispatch(addProduct({product: product, quantity: inputQuantity}));
+        dispatch(addProduct({ product: product, quantity: inputQuantity }));
     }
     const buyHandler = () => {
-        navigator("/checkout", { state: {cart: [{product: product, quantity: inputQuantity}]} });
+        navigator("/checkout", { state: { cart: [{ product: product, quantity: inputQuantity }] } });
     }
 
 
@@ -52,7 +64,7 @@ const ProductDetailPage = () => {
                     <div className="wrap-quality">
                         <p>Số lượng: </p>
                         <button className="-" onClick={() => setInputQuantity(prev => prev - 1)}>-</button>
-                        <input type="text" className="quality" value={inputQuantity} onChange={(e) => setInputQuantity(Number(e.target.value))}/>
+                        <input type="text" className="quality" value={inputQuantity} onChange={(e) => setInputQuantity(Number(e.target.value))} />
                         <button className="+" onClick={() => setInputQuantity(prev => prev + 1)}>+</button>
                     </div>
                     <div className="wrap-btns">
@@ -71,13 +83,13 @@ const ProductDetailPage = () => {
         <div className="wrap-middle">
             <div className="wrap-user-info">
                 <div className="wrap-avatar">
-                    <img src={product.user.avatarUrl} alt="" className="avatar-img" />
-                    
+                    <img src={user.images} alt="" className="avatar-img" />
+
                 </div>
                 <div className="wrap-info">
 
-                <h3 className="name">{product.user.name}</h3>
-                    <button className="show" onClick={() => {navigator("/user/" + product.user.userID)}}>Xem shop</button>
+                    <h3 className="name">{user.name}</h3>
+                    <button className="show" onClick={() => { navigator("/user/" + user.userID) }}>Xem shop</button>
                 </div>
 
             </div>

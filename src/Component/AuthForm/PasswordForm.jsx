@@ -28,10 +28,10 @@ const PasswordForm = ({ type, onSubmit }) => {
 
         {/* Dùng trong cả hai */}
         <input
-          type="text"
+          type="password"
           name="currentPassword"
           placeholder="Mật khẩu hiện tại"
-          required = {stateRequired}
+          required={stateRequired}
           value={formData.currentPassword}
           onChange={handleChange}
         />
@@ -40,24 +40,24 @@ const PasswordForm = ({ type, onSubmit }) => {
           type="password"
           name="newPassword"
           placeholder="Mật khẩu mới"
-          required = {stateRequired}
+          required={stateRequired}
           value={formData.newPassword}
           onChange={handleChange}
         />
 
-<input
-              type="email"
-              name="renewPassword"
-              placeholder="Nhập lại mật khẩu mới"
-              required = {stateRequired}
-              value={formData.renewPassword}
-              onChange={handleChange}
-            />
+        <input
+          type="password"
+          name="renewPassword"
+          placeholder="Nhập lại mật khẩu mới"
+          required={stateRequired}
+          value={formData.renewPassword}
+          onChange={handleChange}
+        />
 
-       
+
 
         <button type="submit">
-            Đổi mật khẩu
+          Đổi mật khẩu
         </button>
 
       </form>
