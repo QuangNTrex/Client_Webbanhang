@@ -64,10 +64,11 @@ const ProductForm = ({ type = "create", onSubmit, product = { categoryID: -1 }, 
             <div className="wrap-btn">
                 <button className="btn btn-update" onClick={() => {
                     console.log(categories)
+                    console.log(categoryRef.current.value)
                     const data = {
                         productID: productIDRef.current.value,
                         userID,
-                        categoryID: categories.filter(e => e.categoryName == categoryRef.current.value)[0].categoryId,
+                        categoryID: categoryRef.current.value,
                         title: titleRef.current.value,
                         description: descRef.current.value,
                         price: priceRef.current.value,
@@ -75,7 +76,7 @@ const ProductForm = ({ type = "create", onSubmit, product = { categoryID: -1 }, 
                         images: imagesRef.current.value,
                         location: locationRef.current.value,
                     }
-
+                    console.log(data)
                     onSubmit(data);
                 }}>{type === "update" ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}</button>
                 {onDelete && <button className="btn btn-delete" onClick={onDelete.bind(null, product.productID)}>Xóa sản phẩm</button>}

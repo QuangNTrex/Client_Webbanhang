@@ -29,23 +29,34 @@ const UpdateProductPage = () => {
     }
 
     const submitHandler = (product) => {
+        const submittData = {
+            ProductID: product.productID,
+            UserID: product.userID,
+            Title: product.title,
+            Description: product.description,
+            Price: product.price,
+            CategoryID: product.categoryID,
+            Condition: product.condition,
+            Images: product.images,
+            Location: product.location,
+            productID: product.productID,
+            userID: product.userID,
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            categoryID: product.categoryID,
+            condition: product.condition,
+            images: product.images,
+            location: product.location
+        }
+        console.log(submittData)
         fetch(serverURL + "/api/product/" + product.productID, {
             method: "PUT",
-            header: {
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({
-                ProductID: product.productID,
-                UserID: product.userID,
-                Title: product.title,
-                Description: product.description,
-                Price: product.price,
-                CategoryID: product.categoryID,
-                Condition: product.condition,
-                Images: product.images,
-                Location: product.location
-            })
+            body: JSON.stringify(submittData)
         }).then(res => res.json()).then(data => {
             navigate("/")
             dispatch(pushNotify({ title: "cap nhat san pham thanh cong" }))

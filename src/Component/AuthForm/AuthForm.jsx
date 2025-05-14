@@ -10,7 +10,7 @@ const AuthForm = ({ type, onSubmit }) => {
   const [formData, setFormData] = useState({
     username: '',
     gmail: '',
-    password: '',
+    password: '123456',
     name: '',
     gender: '',
     birthOfDate: '',
@@ -37,7 +37,7 @@ const AuthForm = ({ type, onSubmit }) => {
           type="text"
           name="username"
           placeholder="Username"
-          required = {stateRequired}
+          required={stateRequired}
           value={formData.username}
           onChange={handleChange}
         />
@@ -46,9 +46,10 @@ const AuthForm = ({ type, onSubmit }) => {
           type="password"
           name="password"
           placeholder="Password"
-          required = {stateRequired}
+          required={stateRequired}
           value={formData.password}
           onChange={handleChange}
+
         />
 
         {/* Chỉ hiện trong Sign Up */}
@@ -58,7 +59,7 @@ const AuthForm = ({ type, onSubmit }) => {
               type="email"
               name="gmail"
               placeholder="Gmail"
-              required = {stateRequired}
+              required={stateRequired}
               value={formData.gmail}
               onChange={handleChange}
             />
@@ -67,7 +68,7 @@ const AuthForm = ({ type, onSubmit }) => {
               type="text"
               name="name"
               placeholder="Full Name"
-              required = {stateRequired}
+              required={stateRequired}
               value={formData.name}
               onChange={handleChange}
             />
@@ -76,19 +77,18 @@ const AuthForm = ({ type, onSubmit }) => {
               name="gender"
               value={formData.gender}
               onChange={handleChange}
-              required = {stateRequired}
+              required={stateRequired}
             >
               <option value="">Select Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
-              <option value="other">Other</option>
             </select>
 
             <input
               type="date"
               name="birthOfDate"
               placeholder="Birth Date"
-              required = {stateRequired}
+              required={stateRequired}
               value={formData.birthOfDate}
               onChange={handleChange}
             />
@@ -97,7 +97,7 @@ const AuthForm = ({ type, onSubmit }) => {
               type="tel"
               name="phoneNumber"
               placeholder="Phone Number"
-              required = {stateRequired}
+              required={stateRequired}
               value={formData.phoneNumber}
               onChange={handleChange}
             />
@@ -106,7 +106,7 @@ const AuthForm = ({ type, onSubmit }) => {
               type="text"
               name="address"
               placeholder="Address"
-              required = {stateRequired}
+              required={stateRequired}
               value={formData.address}
               onChange={handleChange}
             />
@@ -126,12 +126,12 @@ const AuthForm = ({ type, onSubmit }) => {
         </button>
 
         <p style={{ textAlign: 'center' }}>
-            {type === 'signin' ? (
-                <>Don't have an account? <Link to="/signup">Sign up</Link></>
-            ) : (
-                <>Already have an account? <Link to="/signin">Sign in</Link></>
-            )}
-            </p>
+          {type === 'signin' ? (
+            <>Don't have an account? <Link to="/signup">Sign up</Link></>
+          ) : (
+            <>Already have an account? <Link to="/signin">Sign in</Link></>
+          )}
+        </p>
       </form>
     </div>
   );

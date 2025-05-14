@@ -17,41 +17,72 @@ const Header = () => {
     const isLogin = !!username;
     const [showMenuPerson, setShowMenuPerson] = useState(false);
     const [keyword, setKeyword] = useState("");
+    const token = localStorage.getItem("token")
+    const cart = useSelector(state => state.cart.cart)
 
     const logoutHandler = () => {
         dispatch(clearUser());
         localStorage.removeItem("token")
         navigator("/signin");
-        return;
 
-        fetch(serverURL + "/api/account/logout", {
+        console.log("cart", cart);
+        const filterCart = cart.map(({ product, quantity }) => ({
+            productId: product.productID,
+            quantity
+        }));
+        console.log("filterCart", filterCart);
+        fetch(serverURL + "/api/cart", {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(filterCart)
         })
             .then(res => {
                 if (res.ok) {
-                    dispatch(clearUser());
-                    navigator("/signin");
+                    localStorage.removeItem("cart");
+                }
+            })
+            .catch(err => console.log(err))
+
+        fetch(serverURL + "/api/account/logout", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+
                 }
             })
             .catch(err => console.log(err))
     }
     const registerSalerHandler = () => {
-        const token = localStorage.getItem("token")
+
         fetch(serverURL + "/api/account/registerseller", {
             method: "POST",
-            header: {
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         }).then(res => {
             if (res.ok) {
                 dispatch(clearUser());
-                navigator("/signin");
+
+                dispatch(pushNotify({ title: "Dang ki thanh cong, vui long dang nhap lai!" }))
+                setTimeout(() => {
+                    navigator("/signin");
+                }, 2000)
             }
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            dispatch(pushNotify({ title: "Dang ki that bai", state: "ERR" }))
+        })
     }
     useEffect(() => {
-        if(notify.title) {
+        if (notify.title) {
             setTimeout(() => {
                 dispatch(deleteNotify())
             }, notify.time)
@@ -60,12 +91,12 @@ const Header = () => {
 
     return (
         <header className="header">
-            {notify.title && <div className="wrap-notify" onClick={() => {dispatch(deleteNotify())}}>
-                <div className="notify" style={{backgroundColor: notify.exp[notify.state].bgc, color: notify.exp[notify.state].col}} >
-                    <p style={{ color: notify.exp[notify.state].col}}>{notify.title}</p>
+            {notify.title && <div className="wrap-notify" onClick={() => { dispatch(deleteNotify()) }}>
+                <div className="notify" style={{ backgroundColor: notify.exp[notify.state].bgc, color: notify.exp[notify.state].col }} >
+                    <p style={{ color: notify.exp[notify.state].col }}>{notify.title}</p>
                 </div>
             </div>}
-            <h1 onClick={() => { navigator("/") }}><i class="bi bi-backpack2-fill" onClick={() => {dispatch(pushNotify({title: "hello hello"}))}}></i></h1>
+            <h1 onClick={() => { navigator("/") }}><i class="bi bi-backpack2-fill" onClick={() => { dispatch(pushNotify({ title: "hello hello" })) }}></i></h1>
             {/* avatar */}
             <div className="wrap-center">
                 <input onKeyDown={(e) => {

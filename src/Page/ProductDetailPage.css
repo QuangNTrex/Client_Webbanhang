@@ -77,6 +77,8 @@
     width: fit-content;
     padding: 1rem;
     background-color: rgba(255, 0, 0, 0.249);
+
+    cursor: pointer;
 }
 
 .ProductDetailPage .wrap-top .wrap-right .wrap-right-bottom .wrap-btns .wrap-btn .btn-add {

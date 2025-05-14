@@ -12,30 +12,46 @@ const ChangePasswordPage = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
 
-    const submitHandler = (data) => {
-        
-        console.log({
-            currentPassword: data.currentPassword,
-            newPassword: data.newPassword
-        })
-        fetch(serverURL + "/api/account/resetpassword", {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                CurrentPassword: data.currentPassword,
-                NewPassword: data.newPassword
+    const submitHandler = async (data) => {
+        try {
+            console.log({
+                currentPassword: data.currentPassword,
+                newPassword: data.newPassword,
+                renew: data.renewPassword
             })
-        }).then(data => {
-            dispatch(pushNotify({title: "Đổi mật khẩu thành công!",}))
+
+            const response = await fetch(serverURL + "/api/account/resetpassword", {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    CurrentPassword: data.currentPassword,
+                    NewPassword: data.newPassword
+                })
+            });
+            console.log(response);
+            // .then(data => {
+            //     dispatch(pushNotify({ title: "Đổi mật khẩu thành công!", }))
+            //     navigate("/signin");
+            // }).catch(err => {
+            //     dispatch(pushNotify({ title: "Cập nhật thất bại!", state: "ERR" }))
+            //     navigate("/");
+            // })
+            if (!response.ok) {
+                throw new Error("Đổi mật khẩu thất bại.");
+            }
+
+            dispatch(pushNotify({ title: "Đổi mật khẩu thành công!" }));
             navigate("/signin");
-        }).catch(err => {
-            dispatch(pushNotify({title: "Cập nhật thất bại!", state: "ERR"}))
-            console.log(err);
-            navigate("/");
-        })
+
+        } catch (error) {
+            dispatch(pushNotify({
+                title: "Cập nhật thất bại. Vui lòng thử lại!",
+                state: "ERR"
+            }));
+        }
     }
 
     return (

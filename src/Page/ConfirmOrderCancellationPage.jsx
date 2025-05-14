@@ -9,19 +9,37 @@ import OrderItem from "../Component/UI/OrderItem";
 import { pushNotify } from "../redux/notifySlice.js"
 
 const ConfirmOrderCancellationPage = () => {
+
     const reasonRef = useRef()
     const token = localStorage.getItem("token");
     const tempOrder = useLocation().state || {};
     const [order, setOrder] = useState(tempOrder);
     const navigate = useNavigate();
     const dispatch = useDispatch()
+    console.log(tempOrder)
 
     const deleteOrderHandler = () => {
+        if (!reasonRef.current.value) {
+            dispatch(pushNotify({ title: "ly do huy don hang bi bo trong", state: "ERR" }))
+            return;
+        }
 
-        const data = { orderID: order.orderID, reasonCancelation: reasonRef.current.value, state: "CANCELATION" }
+        const data = {
+            "orderID": order.orderID,
+            "buyerId": order.buyerId,
+            "vendorID": order.vendorId,
+            "totalPrice": order.totalPrice,
+            "status": "CANCELATION",
+            "orderDetailID": order.orderDetails[0].orderDetailID,
+            "productID": order.orderDetails[0].productID,
+            "price": order.orderDetails[0].price,
+            "payMethod": order.payMethod,
+            "cancelReason": reasonRef.current.value,
+
+        }
         console.log(data)
 
-        fetch(serverURL + "/api/order/id?id=" + order.orderID, {
+        fetch(serverURL + "/api/order?id=" + order.orderID, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -67,6 +85,9 @@ const ConfirmOrderCancellationPage = () => {
                         <option value="Thay đổi phương thức thanh toán">Thay đổi phương thức thanh toán</option>
                         <option value="Không còn thấy cần thiết">Không còn thấy cần thiết</option>
                     </select>
+                </div>
+                <div className="wrap-method">
+                    <p>Phương thức thanh toán: COD</p>
                 </div>
                 <div className="wrap-refund-money">
                     <p>Số tiền hoàn lại: 0đ</p>

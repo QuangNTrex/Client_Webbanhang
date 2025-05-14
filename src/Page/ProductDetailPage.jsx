@@ -25,7 +25,7 @@ const ProductDetailPage = () => {
             console.log(data);
             setProduct(data);
             //user
-            fetch(serverURL + "/api/account/" + data.userID, {
+            fetch(serverURL + "/api/admin/account/" + data.userID, {
                 method: "GET",
                 header: {
                     'Content-Type': 'application/json',
@@ -42,10 +42,12 @@ const ProductDetailPage = () => {
     }, [id]);
 
     const addToCart = () => {
+        if (!token) return navigator("/signin");
         dispatch(addProduct({ product: product, quantity: inputQuantity }));
         dispatch(pushNotify({ title: "them vao gio hang thanh cong" }))
     }
     const buyHandler = () => {
+        if (!token) return navigator("/signin");
         navigator("/checkout", { state: { cart: [{ product: product, quantity: inputQuantity }] } });
     }
 

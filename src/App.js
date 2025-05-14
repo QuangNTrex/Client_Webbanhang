@@ -44,6 +44,8 @@ function App() {
           dispatch(setUser(data));
         })
         .catch(err => console.log(err));
+
+
     }
 
   }, [])

@@ -7,7 +7,7 @@ import { serverURL } from '../../libs/http';
 
 
 
-const OrderItem = ({unCancelButton, order, onDeleteOrder = () => { } }) => {
+const OrderItem = ({ unCancelButton, order, onDeleteOrder = () => { } }) => {
     const [vendor, setVendor] = useState({})
     const [buyer, setBuyer] = useState({})
     const token = localStorage.getItem("token");
@@ -60,13 +60,15 @@ const OrderItem = ({unCancelButton, order, onDeleteOrder = () => { } }) => {
                 </div>
             </div>
             <div className="OrderItem--wrap-center">
-                {order.orderDetails.map(e => <CheckoutItem product={e.product} />)}
+                {order.orderDetails.map(e => <CheckoutItem quantity={e.quantity} productID={e.productID} product={e.product} />)}
             </div>
             <div className="OrderItem--wrap-bottom">
                 <div className="OrderItem--wrap-bottom-right">
 
                     <h3 className="total-price">Thành tiền: {order.totalPrice} VND</h3>
-                    {!unCancelButton && <button className="btn-delete" onClick={onDeleteOrder.bind(null, order)}>Hủy đơn hàng</button>}
+                    {!unCancelButton && !order.status && <button className="btn-delete" onClick={onDeleteOrder.bind(null, order)}>Hủy đơn hàng</button>}
+                    {!unCancelButton && order.status === "CANCELATION" && <p>Đơn hàng đã hủy!</p>}
+                    {!unCancelButton && order.status === "CANCELATION" && <p>lý do hủy đơn hàng: {order.cancelReason}</p>}
                 </div>
             </div>
         </div>

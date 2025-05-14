@@ -18,16 +18,19 @@ const CheckoutPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const buyHandler = () => {
+        console.log(methodPay)
+        if (methodPay === "") {
+            dispatch(pushNotify({ title: "phai chon phuong thuc thanh toan" }))
+            return;
+        }
         const data = {
             BuyerID: user.userID,
             VendorID: cart[0].product.userID,
-            TotalPrice: cart.reduce((total, item) => total + item.quantity * item.product.price * item.checked, 0)
-            ,
+            TotalPrice: cart.reduce((total, item) => total + item.quantity * item.product.price * item.checked, 0),
+            PayMethod: methodPay,
+            CancelReason: "",
             OrderDetails: orderData.cart.map(e => {
                 return {
-                    productID: e.product.productID,
-                    price: e.product.price,
-                    quantity: e.quantity,
                     ProductID: e.product.productID,
                     Price: e.product.price,
                     Quantity: e.quantity,
@@ -36,17 +39,19 @@ const CheckoutPage = () => {
             MethodPay: methodPay
         }
         console.log(data);
-        return;
+
         fetch(serverURL + "/api/order", {
             method: "POST",
             headers: {
-                'accept': 'text/plain',
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
         })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) throw Error("ngu")
+                return res.json()
+            })
             .then(data => {
                 dispatch(pushNotify({ title: "Đặt hành thành công!" }))
                 console.log("acpt", data)

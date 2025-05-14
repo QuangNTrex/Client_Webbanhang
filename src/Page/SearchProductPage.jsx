@@ -37,6 +37,7 @@ const SearchProductPage = () => {
             <h4 className="title">Tìm kiếm sản phẩm: {q}</h4>
         </div>
         <div className="wrap-product">
+
             <ProductList clickHandler={clickHandler} products={products} />
         </div>
     </div>
