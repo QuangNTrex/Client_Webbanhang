@@ -81,12 +81,14 @@ const UserInfoPage = () => {
             Username: usernameRef.current.value,
             Email: gmailRef.current.value,
             Name: nameRef.current.value,
-            Gender: genderRef.current.value ? true : false,
+            Gender: genderRef.current.checked ? true : false,
             BirthOfDate: birthOfDateRef.current.value,
             PhoneNumber: phoneNumberRef.current.value,
             Address: addressRef.current.value,
             AvatarUrl: avatarUrlRef.current.value,
         }
+        console.log(data)
+        // return;
         fetch(serverURL + "/api/account/update", {
             method: "PUT",
             headers: {
@@ -133,9 +135,11 @@ const UserInfoPage = () => {
                     <input type="text" className="email" ref={gmailRef} defaultValue={user.email} />
                     <div>
                         <label htmlFor="">Nam</label>
-                        <input type="radio" name="gender" className="gender" ref={genderRef} value={true} checked={user.gender} />
+                        <input type="radio" name="gender" className="gender" ref={genderRef} value={true} defaultChecked={user.gender} />
                         <label htmlFor="">Nữ</label>
-                        <input type="radio" name="gender" className="gender" value={false} checked={!user.gender} />
+                        <input type="radio" name="gender" className="gender" value={false} defaultChecked={!user.gender} onClick={() => {
+
+                        }} />
                     </div>
 
                     <input type="date" className="birthOfDate" defaultValue={new Date(user.birthOfDate || Date.now()).toISOString().split('T')[0]} ref={birthOfDateRef} />
@@ -149,6 +153,7 @@ const UserInfoPage = () => {
             <div className="wrap-btn">
                 <button className="btn btn-update" onClick={updateAccountHandler}>Cập nhật</button>
                 {isSaler && <button className="btn btn-update" onClick={() => { navigation("/product/add") }}>Thêm Sản Phẩm</button>}
+                {isSaler && <button className="btn btn-update" onClick={() => { navigation("/order/shop/unconfirm") }}>Đơn hàng của shop</button>}
                 <button className="btn btn-update" onClick={() => { navigation("/user/repassword") }}>Đổi mật khẩu</button>
             </div>
         </div>

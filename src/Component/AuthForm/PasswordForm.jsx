@@ -53,9 +53,6 @@ const PasswordForm = ({ type, onSubmit }) => {
           value={formData.renewPassword}
           onChange={handleChange}
         />
-
-
-
         <button type="submit">
           Đổi mật khẩu
         </button>

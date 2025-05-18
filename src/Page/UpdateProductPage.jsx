@@ -58,7 +58,7 @@ const UpdateProductPage = () => {
             },
             body: JSON.stringify(submittData)
         }).then(res => res.json()).then(data => {
-            navigate("/")
+            navigate("/user/info")
             dispatch(pushNotify({ title: "cap nhat san pham thanh cong" }))
         }).catch(err => {
             navigate("/")

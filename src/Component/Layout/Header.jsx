@@ -7,6 +7,7 @@ import { serverURL } from '../../libs/http';
 import { useDispatch } from 'react-redux';
 import { clearUser } from '../../redux/userSlice';
 import { deleteNotify, pushNotify } from '../../redux/notifySlice';
+import { clearCart } from '../../redux/cartSlice';
 
 const Header = () => {
     const notify = useSelector(state => state.notify);
@@ -21,7 +22,9 @@ const Header = () => {
     const cart = useSelector(state => state.cart.cart)
 
     const logoutHandler = () => {
+        localStorage.removeItem("cart");
         dispatch(clearUser());
+        dispatch(clearCart());
         localStorage.removeItem("token")
         navigator("/signin");
 
@@ -124,15 +127,15 @@ const Header = () => {
                         <div className="wrap-email">
                             <h5 className="email">{email}</h5>
                         </div>
-                        <div className="state">
+                        {token && <div className="state">
                             {isSaler ? <p>Bạn đang là người bán</p> : <p>Bạn chưa có vai trò người bán</p>}
-                        </div>
+                        </div>}
                     </div>
-                    <div className="wrap-center">
+                    {token && <div className="wrap-center">
                         <Link className="link" to="/order">Đơn đã đặt</Link>
                         <Link className="link" to="/user/info">Trang cá nhân</Link>
 
-                    </div>
+                    </div>}
                     <div className="wrap-bottom">
                         <div className="wrap-btns">
                             {isLogin && <Link onClick={logoutHandler}>Đăng xuất</Link>}

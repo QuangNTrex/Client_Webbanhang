@@ -13,25 +13,21 @@ const SignInPage = () => {
 
   const navigation = useNavigate();
   const state = useLocation().state || {};
-  console.log(JSON.stringify(state));
 
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
   const handleLogin = (data) => {
     fetch(serverURL + "/api/account/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-
       },
       body: JSON.stringify({ Email: data.username, Password: data.password })
     })
       .then(response => response.json())
       .then(result => {
-        console.log(result);
+        console.log(result)
         dispatch(setUser(result.user))
         if (result.token) {
-          // Lưu token vào localStorage
           localStorage.setItem('token', result.token);
           fetch(serverURL + "/api/cart", {
             method: "GET",
@@ -42,7 +38,6 @@ const SignInPage = () => {
           })
             .then(res => res.json())
             .then(data => {
-              console.log(data)
               if (!!data)
                 dispatch(resizeProducts({
                   cartItems: data.map(c => {
@@ -51,8 +46,7 @@ const SignInPage = () => {
                 }))
             })
             .catch(err => {
-              dispatch(pushNotify({ title: "lay gio hang that bai", state: "ERR" }))
-              console.log(err)
+              dispatch(pushNotify({ title: "Lấy giỏ hàng thất bại!", state: "ERR" }))
             });
           dispatch(pushNotify({ title: "Đăng nhập thành công, chào mừng " + result.user.name + " đến với trang mua sắm" }))
           if (state.link) {
@@ -61,7 +55,12 @@ const SignInPage = () => {
           else navigation('/');
         }
       })
-      .catch(error => console.error("Login error:", error));
+      .catch(error => {
+        dispatch(pushNotify({
+          title: "Error",
+          state: "ERR"
+        }))
+      });
   };
 
   return <AuthForm type="signin" onSubmit={handleLogin} />;

@@ -10,7 +10,7 @@ const AuthForm = ({ type, onSubmit }) => {
   const [formData, setFormData] = useState({
     username: '',
     gmail: '',
-    password: '123456',
+    password: '',
     name: '',
     gender: '',
     birthOfDate: '',
@@ -28,7 +28,7 @@ const AuthForm = ({ type, onSubmit }) => {
   };
 
   return (
-    <div className="auth-container">
+    <div className="auth-container" style={{ marginTop: isSignUp && "8rem" }}>
       <form className="auth-form" onSubmit={handleSubmit}>
         <h2>{isSignUp ? 'Sign Up' : 'Sign In'}</h2>
 

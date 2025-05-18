@@ -58,3 +58,17 @@
     color: white;
     border: 0;
 }
+
+.OrderItem--wrap-bottom .btn {
+    padding: 1rem 2rem;
+    background-color: rgb(93, 166, 255);
+    color: white;
+    border: 0;
+}
+
+.OrderItem--wrap-bottom .btn-delete {
+    padding: 1rem 2rem;
+    background-color: rgb(255, 93, 93);
+    color: white;
+    border: 0;
+}

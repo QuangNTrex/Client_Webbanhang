@@ -20,7 +20,7 @@ const CheckoutPage = () => {
     const buyHandler = () => {
         console.log(methodPay)
         if (methodPay === "") {
-            dispatch(pushNotify({ title: "phai chon phuong thuc thanh toan" }))
+            dispatch(pushNotify({ title: "Phai chon phuong thuc thanh toan" }))
             return;
         }
         const data = {
@@ -58,7 +58,7 @@ const CheckoutPage = () => {
                 navigate("/");
             })
             .catch(err => {
-                dispatch(pushNotify({ title: "Đặt hành that bai!", state: "ERR" }))
+                dispatch(pushNotify({ title: "Đặt hành thất bại!", state: "ERR" }))
                 console.log("thanh toan", err)
             })
 

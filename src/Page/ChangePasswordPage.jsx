@@ -14,6 +14,9 @@ const ChangePasswordPage = () => {
 
     const submitHandler = async (data) => {
         try {
+            if (data.newPassword != data.renewPassword) {
+                throw new Error("Mật khẩu mới chưa khớp với nhau!")
+            }
             console.log({
                 currentPassword: data.currentPassword,
                 newPassword: data.newPassword,
@@ -31,14 +34,7 @@ const ChangePasswordPage = () => {
                     NewPassword: data.newPassword
                 })
             });
-            console.log(response);
-            // .then(data => {
-            //     dispatch(pushNotify({ title: "Đổi mật khẩu thành công!", }))
-            //     navigate("/signin");
-            // }).catch(err => {
-            //     dispatch(pushNotify({ title: "Cập nhật thất bại!", state: "ERR" }))
-            //     navigate("/");
-            // })
+
             if (!response.ok) {
                 throw new Error("Đổi mật khẩu thất bại.");
             }

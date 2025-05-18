@@ -17,7 +17,7 @@ const ProductDetailPage = () => {
     useEffect(() => {
         fetch(serverURL + "/api/product/" + id, {
             method: "GET",
-            header: {
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
@@ -42,6 +42,7 @@ const ProductDetailPage = () => {
     }, [id]);
 
     const addToCart = () => {
+
         if (!token) return navigator("/signin");
         dispatch(addProduct({ product: product, quantity: inputQuantity }));
         dispatch(pushNotify({ title: "them vao gio hang thanh cong" }))
@@ -87,7 +88,8 @@ const ProductDetailPage = () => {
         <div className="wrap-middle">
             <div className="wrap-user-info">
                 <div className="wrap-avatar">
-                    <img src={user.images} alt="" className="avatar-img" />
+                    {console.log(user)}
+                    <img src={user.avatarUrl} alt="" className="avatar-img" />
 
                 </div>
                 <div className="wrap-info">

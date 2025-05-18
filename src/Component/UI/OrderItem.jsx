@@ -7,13 +7,13 @@ import { serverURL } from '../../libs/http';
 
 
 
-const OrderItem = ({ unCancelButton, order, onDeleteOrder = () => { } }) => {
+const OrderItem = ({ unCancelButton, order, onConfirmOrder = null, onDeleteOrder = () => { } }) => {
     const [vendor, setVendor] = useState({})
     const [buyer, setBuyer] = useState({})
     const token = localStorage.getItem("token");
 
     useEffect(() => {
-        fetch(serverURL + "/api/account/" + order.vendorId, {
+        fetch(serverURL + "/api/admin/account/" + order.vendorId, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ const OrderItem = ({ unCancelButton, order, onDeleteOrder = () => { } }) => {
             console.log(err);
         })
 
-        fetch(serverURL + "/api/account/" + order.buyerId, {
+        fetch(serverURL + "/api/admin/account/" + order.buyerId, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -62,14 +62,29 @@ const OrderItem = ({ unCancelButton, order, onDeleteOrder = () => { } }) => {
             <div className="OrderItem--wrap-center">
                 {order.orderDetails.map(e => <CheckoutItem quantity={e.quantity} productID={e.productID} product={e.product} />)}
             </div>
+            {order.status === "CONFIRMED" && <div>
+                <p>Đơn hàng của bạn đã được phê duyệt!</p>
+            </div>}
             <div className="OrderItem--wrap-bottom">
-                <div className="OrderItem--wrap-bottom-right">
+                {!onConfirmOrder && <div className="OrderItem--wrap-bottom-right">
 
                     <h3 className="total-price">Thành tiền: {order.totalPrice} VND</h3>
                     {!unCancelButton && !order.status && <button className="btn-delete" onClick={onDeleteOrder.bind(null, order)}>Hủy đơn hàng</button>}
                     {!unCancelButton && order.status === "CANCELATION" && <p>Đơn hàng đã hủy!</p>}
                     {!unCancelButton && order.status === "CANCELATION" && <p>lý do hủy đơn hàng: {order.cancelReason}</p>}
-                </div>
+                </div>}
+                {onConfirmOrder && <div className="OrderItem--wrap-bottom-right">
+
+                    <h3 className="total-price" style={{ textAlign: "right" }}>Thành tiền: {order.orderDetails.reduce((total, e) => total + e.price * e.quantity, 0)} VND</h3>
+                    {order.status !== "CANCELATION" && <div className="wrap-button" >
+                        {order.status !== "CONFIRMED" && <button className="btn-confirm btn" onClick={onConfirmOrder.bind(null, order)}>Xác nhận đơn hàng</button>}
+                        {order.status === "CONFIRMED" && <p style={{ color: "green" }}>Đã xác nhận đơn hàng</p>}
+                    </div>}
+                    {order.status === "CANCELATION" && <div>
+                        <p>Người dùng đã hủy đơn hàng này.</p>
+                        <p>Lý do hủy đơn hàng: {order.cancelReason}</p>
+                    </div>}
+                </div>}
             </div>
         </div>
     </div>
